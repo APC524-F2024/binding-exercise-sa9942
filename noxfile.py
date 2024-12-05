@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import nox
 
-nox.options.sessions = ["lint", "pylint", "tests"]
+nox.options.sessions = ["lint", "build", "tests"]
 
 
 @nox.session
