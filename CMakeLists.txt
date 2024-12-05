@@ -12,7 +12,12 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(eigen)
 
 if(DEFINED SKBUILD)
-  # ... Fill me in!
+    find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
+    find_package(pybind11 CONFIG REQUIRED)
+    python_add_library(_core MODULE src/_core.cpp WITH_SOABI)
+    target_link_libraries(_core PRIVATE pybind11::headers)
+    target_include_directories(_core PRIVATE src "${eigen_SOURCE_DIR}")
+    install(TARGETS _core DESTINATION binding_exercise)
 else()
   add_executable(main src/main.cpp src/integrator.hpp)
   target_include_directories(main PRIVATE src "${eigen_SOURCE_DIR}")
